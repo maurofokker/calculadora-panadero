@@ -2,35 +2,28 @@
   <v-app>
     <v-app-bar app>
       <v-toolbar-title class="headline text-uppercase">
-        <span>Vuetify</span>
-        <span class="font-weight-light">MATERIAL DESIGN</span>
+        <span>Calculadora</span>
+        <span class="font-weight-light">&nbsp;Porcentaje Panadero</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn
-        text
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-      >
-        <span class="mr-2">Latest Release</span>
-      </v-btn>
     </v-app-bar>
 
     <v-content>
-      <HelloWorld/>
+      <SimpleBakerCalculator />
     </v-content>
   </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld';
+import SimpleBakerCalculator from "./views/SimpleBakerCalculator";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    HelloWorld,
+    SimpleBakerCalculator
   },
   data: () => ({
     //
-  }),
+  })
 };
 </script>
