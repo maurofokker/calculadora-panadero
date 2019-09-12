@@ -9,109 +9,84 @@
             </v-card-title>
             <v-divider></v-divider>
             <v-card-text>
-              <v-text-field
-                label="Peso Total de Harina"
-                v-model="totalFluorWeight"
-                suffix="grs"
-              ></v-text-field>
-              <v-text-field
-                label="% Masa madre al 100% hidratación"
-                v-model="sourdough"
-                suffix="%"
-              ></v-text-field>
-              <v-text-field
-                label="Total in grams"
-                :value="sourdoughFromTotalFluorWeight"
-                outlined
-                readonly
-                suffix="grs"
-              ></v-text-field>
+              <v-row>
+                <v-col>
+                  <v-text-field
+                    label="Peso Total de Harina"
+                    v-model="totalFluorWeight"
+                    suffix="grs"
+                  ></v-text-field>
+                </v-col>
+                <v-col>
+                  <v-text-field
+                    label="% Masa madre al 100% hidratación"
+                    v-model="sourdough"
+                    suffix="%"
+                  ></v-text-field>
+                </v-col>
+              </v-row>
               <v-divider></v-divider>
-              <v-text-field
-                label="Agua"
-                v-model="water"
-                suffix="%"
-              ></v-text-field>
-              <v-text-field
-                label="Total in grams"
-                :value="waterFromTotalFluorWeight"
-                outlined
-                readonly
-                suffix="grs"
-              ></v-text-field>
+              <v-row>
+                <v-col>
+                  <v-text-field
+                    label="Agua"
+                    v-model="water"
+                    suffix="%"
+                  ></v-text-field>
+                </v-col>
+                <v-col>
+                  <v-text-field
+                    label="Sal"
+                    v-model="salt"
+                    suffix="%"
+                  ></v-text-field>
+                </v-col>
+              </v-row>
               <v-divider></v-divider>
-              <v-text-field
-                label="Sal"
-                v-model="salt"
-                suffix="%"
-              ></v-text-field>
-              <v-text-field
-                label="Total in grams"
-                :value="saltFromTotalFluorWeight"
-                outlined
-                readonly
-                suffix="grs"
-              ></v-text-field>
-              <v-divider></v-divider>
-              <v-text-field
-                label="Tipo Harina"
-                v-model="fluors.one.type"
-              ></v-text-field>
-              <v-text-field
-                :label="flourTypeOne"
-                v-model="fluors.one.percent"
-                suffix="%"
-              ></v-text-field>
-              <v-text-field
-                label="Total in grams"
-                :value="fluorOneFromTotalFluorWeight"
-                outlined
-                readonly
-                suffix="grs"
-              ></v-text-field>
-              <p v-if="totalFluorPercentGreaterThan100">
-                Total de harinas no debe superar el 100%
-              </p>
-              <v-divider></v-divider>
-              <v-text-field
-                label="Tipo Harina"
-                v-model="fluors.two.type"
-              ></v-text-field>
-              <v-text-field
-                :label="flourTypeTwo"
-                v-model="fluors.two.percent"
-                suffix="%"
-              ></v-text-field>
-              <v-text-field
-                label="Total in grams"
-                :value="fluorTwoFromTotalFluorWeight"
-                outlined
-                readonly
-                suffix="grs"
-              ></v-text-field>
-              <p v-if="totalFluorPercentGreaterThan100">
-                Total de harinas no debe superar el 100%
-              </p>
-              <v-divider></v-divider>
-              <v-text-field
-                label="Tipo Harina"
-                v-model="fluors.three.type"
-              ></v-text-field>
-              <v-text-field
-                :label="flourTypeThree"
-                v-model="fluors.three.percent"
-                suffix="%"
-              ></v-text-field>
-              <v-text-field
-                label="Total in grams"
-                :value="fluorThreeFromTotalFluorWeight"
-                outlined
-                readonly
-                suffix="grs"
-              ></v-text-field>
-              <p v-if="totalFluorPercentGreaterThan100">
-                Total de harinas no debe superar el 100%
-              </p>
+              <v-row>
+                <v-col>
+                  <v-text-field
+                    label="Tipo Harina"
+                    v-model="fluors.one.type"
+                  ></v-text-field>
+                  <v-text-field
+                    :label="flourTypeOne"
+                    v-model="fluors.one.percent"
+                    suffix="%"
+                  ></v-text-field>
+                  <p v-if="totalFluorPercentGreaterThan100">
+                    Total de harinas no debe superar el 100%
+                  </p>
+                </v-col>
+                <v-col>
+                  <v-text-field
+                    label="Tipo Harina"
+                    v-model="fluors.two.type"
+                  ></v-text-field>
+                  <v-text-field
+                    :label="flourTypeTwo"
+                    v-model="fluors.two.percent"
+                    suffix="%"
+                  ></v-text-field>
+                  <p v-if="totalFluorPercentGreaterThan100">
+                    Total de harinas no debe superar el 100%
+                  </p>
+                </v-col>
+                <v-col>
+                  <v-text-field
+                    label="Tipo Harina"
+                    v-model="fluors.three.type"
+                  ></v-text-field>
+                  <v-text-field
+                    :label="flourTypeThree"
+                    v-model="fluors.three.percent"
+                    suffix="%"
+                  ></v-text-field>
+                  <p v-if="totalFluorPercentGreaterThan100">
+                    Total de harinas no debe superar el 100%
+                  </p>
+                </v-col>
+              </v-row>
             </v-card-text>
           </v-card>
         </v-col>
