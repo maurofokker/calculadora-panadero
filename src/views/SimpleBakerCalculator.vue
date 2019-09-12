@@ -54,9 +54,6 @@
                     v-model="fluors.one.percent"
                     suffix="%"
                   ></v-text-field>
-                  <p v-if="totalFluorPercentGreaterThan100">
-                    Total de harinas no debe superar el 100%
-                  </p>
                 </v-col>
                 <v-col>
                   <v-text-field
@@ -68,9 +65,6 @@
                     v-model="fluors.two.percent"
                     suffix="%"
                   ></v-text-field>
-                  <p v-if="totalFluorPercentGreaterThan100">
-                    Total de harinas no debe superar el 100%
-                  </p>
                 </v-col>
                 <v-col>
                   <v-text-field
@@ -82,10 +76,10 @@
                     v-model="fluors.three.percent"
                     suffix="%"
                   ></v-text-field>
-                  <p v-if="totalFluorPercentGreaterThan100">
-                    Total de harinas no debe superar el 100%
-                  </p>
                 </v-col>
+              </v-row>
+              <v-row v-if="totalFluorPercentGreaterThan100">
+                <v-col>Total de harinas no debe superar el 100%</v-col>
               </v-row>
             </v-card-text>
           </v-card>
