@@ -81,6 +81,15 @@
               <v-row v-if="totalFluorPercentGreaterThan100">
                 <v-col>Total de harinas no debe superar el 100%</v-col>
               </v-row>
+              <v-row>
+                <v-col v-for="(fluor, index) in fluors2" :key="index">
+                  <Fluor
+                    :type="fluor.type"
+                    :idx="index"
+                    @changetext="theFluor"
+                  />
+                </v-col>
+              </v-row>
             </v-card-text>
           </v-card>
         </v-col>
@@ -150,6 +159,38 @@
                   </v-list-item>
                   <v-list-item>
                     <v-list-item-content>
+                      <v-list-item-title
+                        >Total de Harinas
+                        {{ totalFluorWeight || 0 }} grs</v-list-item-title
+                      >
+                      <v-list-item-subtitle
+                        v-for="(fluor, index) in fluors2"
+                        :key="index"
+                        >{{ fluor.type }} -
+                        {{
+                          getFluorWeightRespectTotalFluorsWeight(fluor.percent)
+                        }}
+                        grs
+                      </v-list-item-subtitle>
+                      <v-list-item-subtitle v-if="fluors.one.type"
+                        >{{ fluors.one.type }} -
+                        {{ fluorOneFromTotalFluorWeight }}
+                        grs</v-list-item-subtitle
+                      >
+                      <v-list-item-subtitle v-if="fluors.two.type"
+                        >{{ fluors.two.type }} -
+                        {{ fluorTwoFromTotalFluorWeight }}
+                        grs</v-list-item-subtitle
+                      >
+                      <v-list-item-subtitle v-if="fluors.three.type"
+                        >{{ fluors.three.type }} -
+                        {{ fluorThreeFromTotalFluorWeight }}
+                        grs</v-list-item-subtitle
+                      >
+                    </v-list-item-content>
+                  </v-list-item>
+                  <v-list-item>
+                    <v-list-item-content>
                       <v-list-item-title>
                         Total de la masa {{ totalDoughWeight }} grs
                       </v-list-item-title>
@@ -166,7 +207,11 @@
 </template>
 
 <script>
+import Fluor from "@/components/Fluor.vue";
 export default {
+  components: {
+    Fluor
+  },
   data() {
     return {
       totalFluorWeight: "",
@@ -188,6 +233,16 @@ export default {
           value: 0
         }
       },
+      fluors2: [
+        {
+          type: "Spelta",
+          percent: 0
+        },
+        {
+          type: "Centeno Blanco",
+          percent: 0
+        }
+      ],
       totalFluor: 0,
       water: 0,
       salt: 0
@@ -242,6 +297,15 @@ export default {
         Number(this.saltFromTotalFluorWeight) +
         Number(this.sourdoughFromTotalFluorWeight)
       );
+    }
+  },
+  methods: {
+    theFluor(evt, idx) {
+      console.log("ARRIVED", evt, idx);
+      this.fluors2[idx].percent = evt;
+    },
+    getFluorWeightRespectTotalFluorsWeight(percent) {
+      return (Number(percent) * this.totalFluorWeight) / 100 || 0;
     }
   }
 };
