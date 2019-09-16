@@ -1,6 +1,5 @@
 <template>
   <div>
-    <!-- <v-text-field label="Tipo Harina" :value="type" disabled></v-text-field> -->
     <v-combobox
       v-model="select"
       :items="fluors"
@@ -15,7 +14,7 @@
 export default {
   data() {
     return {
-      select: "Fuerza",
+      select: this.type,
       fluors: [
         "Fuerza",
         "Fina",
@@ -26,18 +25,8 @@ export default {
     };
   },
   props: {
-    type: {
-      type: String,
-      default: ""
-    },
-    idx: {
-      type: Number
-    }
-  },
-  computed: {
-    fluorType() {
-      return "% Harina " + this.type;
-    }
+    type: { type: String },
+    idx: { type: Number }
   },
   methods: {
     textChanged(evt) {

@@ -43,11 +43,20 @@
                 </v-col>
               </v-row>
               <v-divider></v-divider>
+              <v-btn
+                class="ma-2"
+                tile
+                outlined
+                color="primary"
+                @click.prevent="addFluor"
+              >
+                <v-icon left>mdi-plus</v-icon> Agregar Harina
+              </v-btn>
               <v-row>
-                <v-col v-for="(fluor, index) in fluors2" :key="index">
+                <v-col cols="4" v-for="(fluor, index) in fluors" :key="index">
                   <Fluor
-                    :type="fluor.type"
                     :idx="index"
+                    :type="fluor.type"
                     @changetext="theFluor"
                     @changefluortype="theFluorType"
                   />
@@ -104,7 +113,7 @@
                         {{ totalFluorWeight || 0 }} grs</v-list-item-title
                       >
                       <v-list-item-subtitle
-                        v-for="(fluor, index) in fluors2"
+                        v-for="(fluor, index) in fluors"
                         :key="index"
                         >{{ fluor.type }} -
                         {{
@@ -139,21 +148,16 @@ export default {
   },
   data() {
     return {
-      totalFluorWeight: "",
-      sourdough: "",
-      fluors2: [
+      totalFluorWeight: 1000,
+      sourdough: 20,
+      fluors: [
         {
-          type: "",
-          percent: 0
-        },
-        {
-          type: "",
+          type: "Fuerza",
           percent: 0
         }
       ],
-      totalFluor: 0,
-      water: 0,
-      salt: 0
+      water: 73,
+      salt: 2
     };
   },
   computed: {
@@ -178,14 +182,21 @@ export default {
   methods: {
     theFluor(evt, idx) {
       console.log("ARRIVED", evt, idx);
-      this.fluors2[idx].percent = evt;
+      this.fluors[idx].percent = evt;
     },
     theFluorType(evt, idx) {
       console.log("ARRIVED", evt, idx);
-      this.fluors2[idx].type = evt;
+      this.fluors[idx].type = evt;
     },
     getFluorWeightRespectTotalFluorsWeight(percent) {
       return (Number(percent) * this.totalFluorWeight) / 100 || 0;
+    },
+    addFluor() {
+      const newFluor = {
+        type: "",
+        percent: 0
+      };
+      this.fluors.push(newFluor);
     }
   }
 };
