@@ -54,6 +54,9 @@
               </v-btn>
               <v-row>
                 <v-col cols="4" v-for="(fluor, index) in fluors" :key="index">
+                  <v-btn icon color="gray" @click.prevent="deleteFluor(index)">
+                    <v-icon>mdi-delete</v-icon>
+                  </v-btn>
                   <Fluor
                     :idx="index"
                     :type="fluor.type"
@@ -115,11 +118,16 @@
                       <v-list-item-subtitle
                         v-for="(fluor, index) in fluors"
                         :key="index"
-                        >{{ fluor.type }} -
-                        {{
-                          getFluorWeightRespectTotalFluorsWeight(fluor.percent)
-                        }}
-                        grs
+                      >
+                        <template v-if="fluor.type">
+                          {{ fluor.type }} -
+                          {{
+                            getFluorWeightRespectTotalFluorsWeight(
+                              fluor.percent
+                            )
+                          }}
+                          grs
+                        </template>
                       </v-list-item-subtitle>
                     </v-list-item-content>
                   </v-list-item>
@@ -153,7 +161,7 @@ export default {
       fluors: [
         {
           type: "Fuerza",
-          percent: 0
+          percent: null
         }
       ],
       water: 73,
@@ -162,13 +170,15 @@ export default {
   },
   computed: {
     sourdoughFromTotalFluorWeight: function() {
-      return (Number(this.sourdough) * this.totalFluorWeight) / 100 || 0;
+      return (
+        (Number(this.sourdough) * Number(this.totalFluorWeight)) / 100 || 0
+      );
     },
     waterFromTotalFluorWeight: function() {
-      return (Number(this.water) * this.totalFluorWeight) / 100 || 0;
+      return (Number(this.water) * Number(this.totalFluorWeight)) / 100 || 0;
     },
     saltFromTotalFluorWeight: function() {
-      return (Number(this.salt) * this.totalFluorWeight) / 100 || 0;
+      return (Number(this.salt) * Number(this.totalFluorWeight)) / 100 || 0;
     },
     totalDoughWeight: function() {
       return (
@@ -181,22 +191,26 @@ export default {
   },
   methods: {
     theFluor(evt, idx) {
-      console.log("ARRIVED", evt, idx);
+      // console.log("ARRIVED", evt, idx);
       this.fluors[idx].percent = evt;
     },
     theFluorType(evt, idx) {
-      console.log("ARRIVED", evt, idx);
+      // console.log("ARRIVED", evt, idx);
       this.fluors[idx].type = evt;
     },
     getFluorWeightRespectTotalFluorsWeight(percent) {
-      return (Number(percent) * this.totalFluorWeight) / 100 || 0;
+      return (Number(percent) * Number(this.totalFluorWeight)) / 100 || 0;
     },
     addFluor() {
       const newFluor = {
         type: "",
-        percent: 0
+        percent: null
       };
       this.fluors.push(newFluor);
+    },
+    deleteFluor(idx) {
+      const deletedFluor = this.fluors.splice(idx, 1);
+      console.log("DELETED", deletedFluor);
     }
   }
 };
