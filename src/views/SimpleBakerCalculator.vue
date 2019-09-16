@@ -44,49 +44,12 @@
               </v-row>
               <v-divider></v-divider>
               <v-row>
-                <v-col>
-                  <v-text-field
-                    label="Tipo Harina"
-                    v-model="fluors.one.type"
-                  ></v-text-field>
-                  <v-text-field
-                    :label="flourTypeOne"
-                    v-model="fluors.one.percent"
-                    suffix="%"
-                  ></v-text-field>
-                </v-col>
-                <v-col>
-                  <v-text-field
-                    label="Tipo Harina"
-                    v-model="fluors.two.type"
-                  ></v-text-field>
-                  <v-text-field
-                    :label="flourTypeTwo"
-                    v-model="fluors.two.percent"
-                    suffix="%"
-                  ></v-text-field>
-                </v-col>
-                <v-col>
-                  <v-text-field
-                    label="Tipo Harina"
-                    v-model="fluors.three.type"
-                  ></v-text-field>
-                  <v-text-field
-                    :label="flourTypeThree"
-                    v-model="fluors.three.percent"
-                    suffix="%"
-                  ></v-text-field>
-                </v-col>
-              </v-row>
-              <v-row v-if="totalFluorPercentGreaterThan100">
-                <v-col>Total de harinas no debe superar el 100%</v-col>
-              </v-row>
-              <v-row>
                 <v-col v-for="(fluor, index) in fluors2" :key="index">
                   <Fluor
                     :type="fluor.type"
                     :idx="index"
                     @changetext="theFluor"
+                    @changefluortype="theFluorType"
                   />
                 </v-col>
               </v-row>
@@ -140,29 +103,6 @@
                         >Total de Harinas
                         {{ totalFluorWeight || 0 }} grs</v-list-item-title
                       >
-                      <v-list-item-subtitle v-if="fluors.one.type"
-                        >{{ fluors.one.type }} -
-                        {{ fluorOneFromTotalFluorWeight }}
-                        grs</v-list-item-subtitle
-                      >
-                      <v-list-item-subtitle v-if="fluors.two.type"
-                        >{{ fluors.two.type }} -
-                        {{ fluorTwoFromTotalFluorWeight }}
-                        grs</v-list-item-subtitle
-                      >
-                      <v-list-item-subtitle v-if="fluors.three.type"
-                        >{{ fluors.three.type }} -
-                        {{ fluorThreeFromTotalFluorWeight }}
-                        grs</v-list-item-subtitle
-                      >
-                    </v-list-item-content>
-                  </v-list-item>
-                  <v-list-item>
-                    <v-list-item-content>
-                      <v-list-item-title
-                        >Total de Harinas
-                        {{ totalFluorWeight || 0 }} grs</v-list-item-title
-                      >
                       <v-list-item-subtitle
                         v-for="(fluor, index) in fluors2"
                         :key="index"
@@ -172,21 +112,6 @@
                         }}
                         grs
                       </v-list-item-subtitle>
-                      <v-list-item-subtitle v-if="fluors.one.type"
-                        >{{ fluors.one.type }} -
-                        {{ fluorOneFromTotalFluorWeight }}
-                        grs</v-list-item-subtitle
-                      >
-                      <v-list-item-subtitle v-if="fluors.two.type"
-                        >{{ fluors.two.type }} -
-                        {{ fluorTwoFromTotalFluorWeight }}
-                        grs</v-list-item-subtitle
-                      >
-                      <v-list-item-subtitle v-if="fluors.three.type"
-                        >{{ fluors.three.type }} -
-                        {{ fluorThreeFromTotalFluorWeight }}
-                        grs</v-list-item-subtitle
-                      >
                     </v-list-item-content>
                   </v-list-item>
                   <v-list-item>
@@ -216,30 +141,13 @@ export default {
     return {
       totalFluorWeight: "",
       sourdough: "",
-      fluors: {
-        one: {
-          type: "",
-          percent: 0,
-          value: 0
-        },
-        two: {
-          type: "",
-          percent: 0,
-          value: 0
-        },
-        three: {
-          type: "",
-          percent: 0,
-          value: 0
-        }
-      },
       fluors2: [
         {
-          type: "Spelta",
+          type: "",
           percent: 0
         },
         {
-          type: "Centeno Blanco",
+          type: "",
           percent: 0
         }
       ],
@@ -249,46 +157,14 @@ export default {
     };
   },
   computed: {
-    flourTypeOne: function() {
-      return "% Harina " + this.fluors.one.type;
-    },
-    flourTypeTwo: function() {
-      return "% Harina " + this.fluors.two.type;
-    },
-    flourTypeThree: function() {
-      return "% Harina " + this.fluors.three.type;
-    },
     sourdoughFromTotalFluorWeight: function() {
       return (Number(this.sourdough) * this.totalFluorWeight) / 100 || 0;
-    },
-    fluorOneFromTotalFluorWeight: function() {
-      return (
-        (Number(this.fluors.one.percent) * this.totalFluorWeight) / 100 || 0
-      );
-    },
-    fluorTwoFromTotalFluorWeight: function() {
-      return (
-        (Number(this.fluors.two.percent) * this.totalFluorWeight) / 100 || 0
-      );
-    },
-    fluorThreeFromTotalFluorWeight: function() {
-      return (
-        (Number(this.fluors.three.percent) * this.totalFluorWeight) / 100 || 0
-      );
     },
     waterFromTotalFluorWeight: function() {
       return (Number(this.water) * this.totalFluorWeight) / 100 || 0;
     },
     saltFromTotalFluorWeight: function() {
       return (Number(this.salt) * this.totalFluorWeight) / 100 || 0;
-    },
-    totalFluorPercentGreaterThan100: function() {
-      return (
-        Number(this.fluors.one.percent) +
-          Number(this.fluors.two.percent) +
-          Number(this.fluors.three.percent) >
-        100
-      );
     },
     totalDoughWeight: function() {
       return (
@@ -303,6 +179,10 @@ export default {
     theFluor(evt, idx) {
       console.log("ARRIVED", evt, idx);
       this.fluors2[idx].percent = evt;
+    },
+    theFluorType(evt, idx) {
+      console.log("ARRIVED", evt, idx);
+      this.fluors2[idx].type = evt;
     },
     getFluorWeightRespectTotalFluorsWeight(percent) {
       return (Number(percent) * this.totalFluorWeight) / 100 || 0;
