@@ -11,28 +11,24 @@
 </template>
 
 <script>
+// import fluors from "@/data/fluors.json";
+
 export default {
   data() {
     return {
-      select: this.type,
-      fluors: [
-        "Fuerza",
-        "Fina",
-        "Whole Grain",
-        "Centeno Oscuro",
-        "Centeno Blanco"
-      ]
+      select: ""
     };
   },
   props: {
-    type: { type: String },
-    idx: { type: Number }
+    idx: { type: Number },
+    fluors: { type: Array }
   },
   methods: {
     textChanged(evt) {
       this.$emit("changetext", evt, this.idx);
     },
     textChangedType(evt) {
+      this.select = evt;
       this.$emit("changefluortype", evt, this.idx);
     }
   }

@@ -53,13 +53,13 @@
                 <v-icon left>mdi-plus</v-icon> Agregar Harina
               </v-btn>
               <v-row>
-                <v-col cols="4" v-for="(fluor, index) in fluors" :key="index">
+                <v-col cols="6" v-for="(fluor, index) in fluors" :key="index">
                   <v-btn icon color="gray" @click.prevent="deleteFluor(index)">
                     <v-icon>mdi-delete</v-icon>
                   </v-btn>
                   <Fluor
                     :idx="index"
-                    :type="fluor.type"
+                    :fluors="fluorTypes"
                     @changetext="theFluor"
                     @changefluortype="theFluorType"
                   />
@@ -150,6 +150,7 @@
 
 <script>
 import Fluor from "@/components/Fluor.vue";
+import fluors from "@/data/fluors.json";
 export default {
   components: {
     Fluor
@@ -158,12 +159,8 @@ export default {
     return {
       totalFluorWeight: 1000,
       sourdough: 20,
-      fluors: [
-        {
-          type: "Fuerza",
-          percent: null
-        }
-      ],
+      fluors: [],
+      fluorTypes: Object.keys(fluors),
       water: 73,
       salt: 2
     };
@@ -209,8 +206,8 @@ export default {
       this.fluors.push(newFluor);
     },
     deleteFluor(idx) {
-      const deletedFluor = this.fluors.splice(idx, 1);
-      console.log("DELETED", deletedFluor);
+      console.log("INDX", idx);
+      this.fluors.splice(idx, 1);
     }
   }
 };

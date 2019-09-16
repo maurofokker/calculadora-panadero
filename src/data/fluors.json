@@ -1,0 +1,26 @@
+{
+  "Fuerza": {
+    "id": 1,
+    "proteina": 13
+  },
+  "Fina Normal": {
+    "id": 2,
+    "proteina": 11.5
+  },
+  "Fina Especial": {
+    "id": 3,
+    "proteina": 13
+  },
+  "Whole Grain": {
+    "id": 4,
+    "proteina": 12.3
+  },
+  "Centeno Oscuro": {
+    "id": 5,
+    "proteina": 15.9
+  },
+  "Centeno Blanco": {
+    "id": 6,
+    "proteina": 13
+  }
+}
