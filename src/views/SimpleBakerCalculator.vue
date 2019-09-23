@@ -52,6 +52,12 @@
               >
                 <v-icon left>mdi-plus</v-icon> Agregar Harina
               </v-btn>
+              <v-alert
+                v-if="totalDoughsPercentShouldBeLessThan100"
+                type="warning"
+              >
+                Porcentaje total de harinas no debe ser mayor a 100
+              </v-alert>
               <v-row>
                 <v-col cols="6" v-for="(fluor, index) in fluors" :key="index">
                   <v-btn icon color="gray" @click.prevent="deleteFluor(index)">
@@ -193,6 +199,17 @@ export default {
         Number(this.saltFromTotalFluorWeight) +
         Number(this.sourdoughFromTotalFluorWeight)
       );
+    },
+    totalDoughsPercentShouldBeLessThan100: function() {
+      let sum = 0;
+      for (let fluor of this.fluors) {
+        sum += Number(fluor.percent);
+      }
+      if (sum > 100) {
+        return true;
+      } else {
+        return false;
+      }
     }
   },
   methods: {
