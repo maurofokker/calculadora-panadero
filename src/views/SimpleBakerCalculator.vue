@@ -60,6 +60,7 @@
                   <Fluor
                     :idx="index"
                     :fluors="fluorTypes"
+                    :fluor="fluor"
                     @changetext="theFluor"
                     @changefluortype="theFluorType"
                   />
@@ -150,7 +151,7 @@
 
 <script>
 import Fluor from "@/components/Fluor.vue";
-import fluors from "@/data/fluors.json";
+import fluorsData from "@/data/fluors.json";
 export default {
   components: {
     Fluor
@@ -160,7 +161,7 @@ export default {
       totalFluorWeight: 1000,
       sourdough: 20,
       fluors: [],
-      fluorTypes: Object.keys(fluors),
+      fluorTypes: Object.keys(fluorsData),
       water: 73,
       salt: 2
     };
@@ -189,11 +190,17 @@ export default {
   methods: {
     theFluor(evt, idx) {
       // console.log("ARRIVED", evt, idx);
-      this.fluors[idx].percent = evt;
+      // this.fluors[idx].percent = evt;
+      const fluor = this.fluors[idx];
+      this.$set(fluor, "percent", evt);
+      this.$set(this.fluors, idx, fluor);
     },
     theFluorType(evt, idx) {
       // console.log("ARRIVED", evt, idx);
-      this.fluors[idx].type = evt;
+      // this.fluors[idx].type = evt;
+      const fluor = this.fluors[idx];
+      this.$set(fluor, "type", evt);
+      this.$set(this.fluors, idx, fluor);
     },
     getFluorWeightRespectTotalFluorsWeight(percent) {
       return (Number(percent) * Number(this.totalFluorWeight)) / 100 || 0;
