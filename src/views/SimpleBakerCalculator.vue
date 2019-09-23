@@ -145,6 +145,12 @@
           </v-card>
         </v-col>
       </v-row>
+      <v-snackbar v-model="snackbar">
+        {{ snackbarText }}
+        <v-btn color="info" timeout="6000" text @click="snackbar = false">
+          Close
+        </v-btn>
+      </v-snackbar>
     </v-container>
   </v-form>
 </template>
@@ -163,7 +169,9 @@ export default {
       fluors: [],
       fluorTypes: Object.keys(fluorsData),
       water: 73,
-      salt: 2
+      salt: 2,
+      snackbar: false,
+      snackbarText: "Tipo de harina eliminada"
     };
   },
   computed: {
@@ -213,8 +221,10 @@ export default {
       this.fluors.push(newFluor);
     },
     deleteFluor(idx) {
-      console.log("INDX", idx);
+      const fluorToDelete = this.fluors[idx];
       this.fluors.splice(idx, 1);
+      this.snackbarText = `Harina ${fluorToDelete.type} eliminada`;
+      this.snackbar = true;
     }
   }
 };
