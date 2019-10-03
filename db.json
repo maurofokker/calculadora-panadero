@@ -1,0 +1,31 @@
+{
+  "formulas": [
+    {
+      "id": "c8488d9e-c0a8-494f-9198-17ca106f05ad",
+      "name": "Primera formula",
+      "formula": {
+        "totalFluorWeight": 1000,
+        "sourdough": 20,
+        "water": 73,
+        "salt": 2,
+        "fluors": []
+      }
+    },
+    {
+      "id": "541e4c06-cf93-4019-b965-023c9cb0e5ef",
+      "name": "Segunda formula",
+      "formula": {
+        "totalFluorWeight": 1000,
+        "sourdough": 20,
+        "water": 73,
+        "salt": 2,
+        "fluors": [
+          {
+            "type": "Fuerza",
+            "percent": "100"
+          }
+        ]
+      }
+    }
+  ]
+}

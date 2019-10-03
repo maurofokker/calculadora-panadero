@@ -181,6 +181,7 @@
 import Fluor from "@/components/Fluor.vue";
 import ModalSaveFormula from "@/components/ModalSaveFormula.vue";
 import fluorsData from "@/data/fluors.json";
+import axios from "axios";
 import uuid from "uuid";
 
 export default {
@@ -263,7 +264,6 @@ export default {
       this.snackbar = true;
     },
     saveFormula(name) {
-      console.log("ARGUMENTS", arguments);
       const newFormula = {
         id: uuid(),
         name: name,
@@ -276,7 +276,12 @@ export default {
         }
       };
       console.log(newFormula);
-      this.dialog = false;
+      axios
+        .post("http://localhost:3000/formulas", newFormula)
+        .then(response => {
+          console.log(response);
+          this.dialog = false;
+        });
     }
   }
 };
