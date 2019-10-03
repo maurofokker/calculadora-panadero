@@ -79,6 +79,16 @@
           <v-card class="mt-10 mx-auto">
             <v-card-title primary-title>
               <h3>Resultado</h3>
+              <v-spacer></v-spacer>
+              <v-btn
+                class="ma-2"
+                tile
+                outlined
+                color="primary"
+                @click.prevent="dialog = true"
+              >
+                <v-icon dark left>mdi-thumb_up</v-icon> Guardar
+              </v-btn>
             </v-card-title>
             <v-divider></v-divider>
             <v-card-text>
@@ -157,16 +167,26 @@
           Close
         </v-btn>
       </v-snackbar>
+      <v-dialog v-model="dialog" persistent max-width="600px">
+        <ModalSaveFormula
+          @closeModal="dialog = false"
+          @saveFormula="saveFormula"
+        />
+      </v-dialog>
     </v-container>
   </v-form>
 </template>
 
 <script>
 import Fluor from "@/components/Fluor.vue";
+import ModalSaveFormula from "@/components/ModalSaveFormula.vue";
 import fluorsData from "@/data/fluors.json";
+import uuid from "uuid";
+
 export default {
   components: {
-    Fluor
+    Fluor,
+    ModalSaveFormula
   },
   data() {
     return {
@@ -177,7 +197,8 @@ export default {
       water: 73,
       salt: 2,
       snackbar: false,
-      snackbarText: "Tipo de harina eliminada"
+      snackbarText: "Tipo de harina eliminada",
+      dialog: false
     };
   },
   computed: {
@@ -214,8 +235,6 @@ export default {
   },
   methods: {
     theFluor(evt, idx) {
-      // console.log("ARRIVED", evt, idx);
-      // this.fluors[idx].percent = evt;
       const fluor = this.fluors[idx];
       this.$set(fluor, "percent", evt);
       this.$set(this.fluors, idx, fluor);
@@ -242,6 +261,22 @@ export default {
       this.fluors.splice(idx, 1);
       this.snackbarText = `Harina ${fluorToDelete.type} eliminada`;
       this.snackbar = true;
+    },
+    saveFormula(name) {
+      console.log("ARGUMENTS", arguments);
+      const newFormula = {
+        id: uuid(),
+        name: name,
+        formula: {
+          totalFluorWeight: this.totalFluorWeight,
+          sourdough: this.sourdough,
+          water: this.water,
+          salt: this.salt,
+          fluors: this.fluors
+        }
+      };
+      console.log(newFormula);
+      this.dialog = false;
     }
   }
 };
