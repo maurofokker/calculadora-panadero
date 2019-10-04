@@ -28,7 +28,7 @@ export default new Router({
       path: "/formulas",
       name: "formulas",
       component: () =>
-        import(/* webpackChunkName: "TheFormulas" */ "./views/TheFormulas.vue")
+        import(/* webpackChunkName: "Formulas" */ "./views/Formulas.vue")
     }
   ]
 });
