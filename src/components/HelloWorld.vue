@@ -12,7 +12,7 @@
 
       <v-flex mb-4>
         <h1 class="display-2 font-weight-bold mb-3">
-          Calculadora con porcentaje del panadero
+          Calculadora y f&oacute;rmulas para panader&iacute;a y pizzer&iacute;a
         </h1>
       </v-flex>
     </v-layout>

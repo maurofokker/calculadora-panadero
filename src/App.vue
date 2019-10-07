@@ -2,8 +2,8 @@
   <v-app>
     <v-app-bar app>
       <v-toolbar-title class="headline text-uppercase">
-        <span>Calculadora</span>
-        <span class="font-weight-light">&nbsp;Porcentaje Panadero</span>
+        <span>Oh My</span>
+        <span class="font-weight-light">&nbsp;Dough</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn
