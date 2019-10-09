@@ -28,22 +28,43 @@
               <v-divider></v-divider>
               <v-row>
                 <v-col>
-                  <v-text-field label="Agua" v-model="water" suffix="%"></v-text-field>
+                  <v-text-field
+                    label="Agua"
+                    v-model="water"
+                    suffix="%"
+                  ></v-text-field>
                 </v-col>
                 <v-col>
-                  <v-text-field label="Sal" v-model="salt" suffix="%"></v-text-field>
+                  <v-text-field
+                    label="Sal"
+                    v-model="salt"
+                    suffix="%"
+                  ></v-text-field>
                 </v-col>
               </v-row>
               <v-divider></v-divider>
-              <v-btn class="ma-2" tile outlined color="primary" @click.prevent="addFluor">
+              <v-btn
+                class="ma-2"
+                tile
+                outlined
+                color="primary"
+                @click.prevent="addFluor"
+              >
                 <v-icon left>mdi-plus</v-icon>Agregar Harina
               </v-btn>
               <v-alert
                 v-if="totalDoughsPercentShouldBeLessThan100"
                 type="warning"
-              >Porcentaje total de harinas no debe ser mayor a 100</v-alert>
+                >Porcentaje total de harinas no debe ser mayor a 100</v-alert
+              >
               <v-row>
-                <v-col cols="12" lg="6" sm="6" v-for="(fluor, index) in fluors" :key="index">
+                <v-col
+                  cols="12"
+                  lg="6"
+                  sm="6"
+                  v-for="(fluor, index) in fluors"
+                  :key="index"
+                >
                   <v-btn icon color="gray" @click.prevent="deleteFluor(index)">
                     <v-icon>mdi-delete</v-icon>
                   </v-btn>
@@ -64,8 +85,15 @@
             <v-card-title primary-title>
               <h3>Resultado</h3>
               <v-spacer></v-spacer>
-              <v-btn class="ma-2" tile outlined color="primary" @click.prevent="dialog = true">
-                <v-icon dark left>mdi-thumb_up</v-icon>Guardar
+              <v-btn
+                class="ma-2"
+                tile
+                outlined
+                color="primary"
+                @click.prevent="dialog = true"
+              >
+                <v-icon dark left>{{ icons.mdiContentSave }}</v-icon
+                >Guardar
               </v-btn>
             </v-card-title>
             <v-divider></v-divider>
@@ -92,12 +120,18 @@
                   </v-list-item>
                   <v-list-item>
                     <v-list-item-content>
-                      <v-list-item-title>Total de agua {{ waterFromTotalFluorWeight }} grs</v-list-item-title>
+                      <v-list-item-title
+                        >Total de agua
+                        {{ waterFromTotalFluorWeight }} grs</v-list-item-title
+                      >
                     </v-list-item-content>
                   </v-list-item>
                   <v-list-item>
                     <v-list-item-content>
-                      <v-list-item-title>Total de sal {{ saltFromTotalFluorWeight }} grs</v-list-item-title>
+                      <v-list-item-title
+                        >Total de sal
+                        {{ saltFromTotalFluorWeight }} grs</v-list-item-title
+                      >
                     </v-list-item-content>
                   </v-list-item>
                   <v-list-item>
@@ -106,13 +140,16 @@
                         Total de Harinas
                         {{ totalFluorWeight || 0 }} grs
                       </v-list-item-title>
-                      <v-list-item-subtitle v-for="(fluor, index) in fluors" :key="index">
+                      <v-list-item-subtitle
+                        v-for="(fluor, index) in fluors"
+                        :key="index"
+                      >
                         <template v-if="fluor.type">
                           {{ fluor.type }} -
                           {{
-                          getFluorWeightRespectTotalFluorsWeight(
-                          fluor.percent
-                          )
+                            getFluorWeightRespectTotalFluorsWeight(
+                              fluor.percent
+                            )
                           }}
                           grs
                         </template>
@@ -121,7 +158,10 @@
                   </v-list-item>
                   <v-list-item>
                     <v-list-item-content>
-                      <v-list-item-title>Total de la masa {{ totalDoughWeight }} grs</v-list-item-title>
+                      <v-list-item-title
+                        >Total de la masa
+                        {{ totalDoughWeight }} grs</v-list-item-title
+                      >
                     </v-list-item-content>
                   </v-list-item>
                 </v-list-item-group>
@@ -132,10 +172,15 @@
       </v-row>
       <v-snackbar v-model="snackbar">
         {{ snackbarText }}
-        <v-btn color="info" timeout="6000" text @click="snackbar = false">Close</v-btn>
+        <v-btn color="info" timeout="6000" text @click="snackbar = false"
+          >Close</v-btn
+        >
       </v-snackbar>
       <v-dialog v-model="dialog" persistent max-width="600px">
-        <ModalSaveFormula @closeModal="dialog = false" @saveFormula="saveFormula" />
+        <ModalSaveFormula
+          @closeModal="dialog = false"
+          @saveFormula="saveFormula"
+        />
       </v-dialog>
     </v-container>
   </v-form>
@@ -147,6 +192,7 @@ import ModalSaveFormula from "@/components/ModalSaveFormula.vue";
 import fluorsData from "@/data/fluors.json";
 import axios from "axios";
 import uuid from "uuid";
+import { mdiContentSave } from "@mdi/js";
 
 export default {
   components: {
@@ -163,7 +209,8 @@ export default {
       salt: 2,
       snackbar: false,
       snackbarText: "Tipo de harina eliminada",
-      dialog: false
+      dialog: false,
+      icons: { mdiContentSave }
     };
   },
   computed: {

@@ -32,3 +32,8 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+### Material Designs Icons
+
+* To use other icons different than defaults read [this](https://vuetifyjs.com/es-MX/customization/icons#install-material-design-icons-js-svg)
+* [Material design icons website](https://materialdesignicons.com/) 
