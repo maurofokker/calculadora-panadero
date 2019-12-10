@@ -190,10 +190,10 @@
 import Fluor from "@/components/Fluor.vue";
 import ModalSaveFormula from "@/components/ModalSaveFormula.vue";
 import fluorsData from "@/data/fluors.json";
-import axios from "axios";
-import uuid from "uuid";
+// import axios from "axios";
+// import uuid from "uuid";
 import { mdiContentSave } from "@mdi/js";
-
+import { DB } from "../../firebase/db";
 export default {
   components: {
     Fluor,
@@ -275,8 +275,9 @@ export default {
       this.snackbar = true;
     },
     saveFormula(name) {
+      const self = this; // in order to use it inside the callback or the reference will lose the ctx
+      const createdAt = new Date();
       const newFormula = {
-        id: uuid(),
         name: name,
         formula: {
           totalFluorWeight: this.totalFluorWeight,
@@ -284,15 +285,30 @@ export default {
           water: this.water,
           salt: this.salt,
           fluors: this.fluors
-        }
+        },
+        createdAt
       };
       console.log(newFormula);
-      axios
-        .post("http://localhost:3000/formulas", newFormula)
-        .then(response => {
-          console.log(response);
-          this.dialog = false;
+      DB.collection("formulas")
+        .add(newFormula)
+        .then(function() {
+          console.log("Document successfully written!");
+          self.dialog = false;
+          self.snackbarText = "Formula guardada exitosamente";
+          self.snackbar = true;
+        })
+        .catch(function(error) {
+          console.error("Error writing document: ", error);
+          self.dialog = false;
+          self.snackbarText = "Formula no se pudo guardar";
+          self.snackbar = true;
         });
+      // axios
+      //   .post("http://localhost:3000/formulas", newFormula)
+      //   .then(response => {
+      //     console.log(response);
+      //     this.dialog = false;
+      //   });
     }
   }
 };
