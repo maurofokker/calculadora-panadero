@@ -1,4 +1,4 @@
-import { App } from "@/firebase/app";
+import { App } from "./app";
 import "firebase/firestore";
 
 export const DB = App.firestore();

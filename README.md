@@ -42,6 +42,12 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 * I use  [this tutorial](https://garywoodfine.com/how-to-install-firebase-with-vue-js/) and [vuefire docs](https://vuefire.vuejs.org)
 
+* Vuefire tutorials:
+  * [CRUD TODO LIST](https://medium.com/@magyarn/vuefire-crud-todo-list-app-part-2-8bd61ae0d066)
+  * [Fullsatck tutorial](https://medium.com/vue-mastery/full-stack-vue-js-with-firestore-62e2fe2ec1f3)
+  
+* Firestore [documentation](https://firebase.google.com/docs/firestore)
+
 * For authentication see [this tutorial](https://garywoodfine.com/vue-app-with-firebase-authentication/)
 
 * In `.env.[mode].local` add config from firebase console. See [uing environment variables in vue](https://garywoodfine.com/using-environment-variables-in-vue-js/) post
