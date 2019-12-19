@@ -21,10 +21,6 @@
                   >
                     <v-icon>{{ icons.mdiEye }}</v-icon>
                   </v-btn>
-
-                  <v-btn icon color="gray" @click.prevent="openDialog(formula)">
-                    <v-icon>mdi-delete</v-icon>
-                  </v-btn>
                 </td>
               </tr>
             </tbody>
@@ -32,29 +28,6 @@
         </v-simple-table>
       </v-col>
     </v-row>
-    <v-dialog v-if="selected" v-model="dialog" persistent max-width="290px">
-      <v-card>
-        <v-card-title class="headline">Atenci&oacute;n</v-card-title>
-
-        <v-card-text>
-          Usted est&aacute; por eliminar la f&oacute;rmula
-          <strong>{{ selected.name }}</strong
-          >. Est&aacute; de acuerdo?
-        </v-card-text>
-
-        <v-card-actions>
-          <div class="flex-grow-1"></div>
-
-          <v-btn color="gray darken-1" text @click="dialog = false">
-            Cancelar
-          </v-btn>
-
-          <v-btn color="primary darken-1" text @click="deleteFormula">
-            Aceptar
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
   </v-container>
 </template>
 
@@ -73,41 +46,6 @@ export default {
   },
   firestore: {
     formulas: DB.collection("formulas").orderBy("createdAt", "desc")
-  },
-  created() {
-    // axios.get("http://localhost:3000/formulas").then(({ data }) => {
-    //   console.log("FORMULAS REQUESTED", data);
-    //   this.formulas = data;
-    // });
-  },
-  methods: {
-    openDialog(formula) {
-      console.log("DELETE", formula.id);
-      this.dialog = true;
-      this.selected = formula;
-    },
-    deleteFormula() {
-      this.dialog = false;
-      // axios
-      //   .delete("http://localhost:3000/formulas/" + this.selected.id)
-      //   .then(response => {
-      //     console.log("RESPONSE", response);
-      //     this.formulas = this.formulas.filter(
-      //       formula => formula.id != this.selected.id
-      //     );
-      //   });
-      console.log("SELECTED", this.selected);
-      const formulaID = this.selected.id;
-      DB.collection("formulas")
-        .doc(formulaID)
-        .delete()
-        .then(function() {
-          console.log("Document successfully deleted!");
-        })
-        .catch(function(error) {
-          console.error("Error removing document: ", error);
-        });
-    }
   }
 };
 </script>
