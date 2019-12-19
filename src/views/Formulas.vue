@@ -6,14 +6,22 @@
           <template v-slot:default>
             <thead>
               <tr>
-                <th class="text-left">Nombre</th>
-                <th class="text-left">Acci&oacute;n</th>
+                <th id="name" class="text-left">Nombre</th>
+                <th id="action" class="text-left">Acci&oacute;n</th>
               </tr>
             </thead>
             <tbody>
               <tr v-for="formula in formulas" :key="formula.id">
                 <td>{{ formula.name }}</td>
                 <td>
+                  <v-btn
+                    icon
+                    color="gray"
+                    :to="{ name: 'formulaID', params: { id: formula.id } }"
+                  >
+                    <v-icon>{{ icons.mdiEye }}</v-icon>
+                  </v-btn>
+
                   <v-btn icon color="gray" @click.prevent="openDialog(formula)">
                     <v-icon>mdi-delete</v-icon>
                   </v-btn>
@@ -30,7 +38,7 @@
 
         <v-card-text>
           Usted est&aacute; por eliminar la f&oacute;rmula
-          <b>{{ selected.name }}</b
+          <strong>{{ selected.name }}</strong
           >. Est&aacute; de acuerdo?
         </v-card-text>
 
@@ -53,12 +61,14 @@
 <script>
 // import axios from "axios";
 import { DB } from "../../firebase/db";
+import { mdiEye } from "@mdi/js";
 export default {
   data() {
     return {
       formulas: [],
       dialog: false,
-      selected: ""
+      selected: "",
+      icons: { mdiEye }
     };
   },
   firestore: {
